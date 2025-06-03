@@ -1,0 +1,9 @@
+Open in web Browser
+
+Format: JSON
+
+
+
+
+
+https://news-mediator.tradingview.com/news-flow/v1/news?filter=lang%3Aen&filter=symbol%3ACAPITALCOM%3AGOLD%2CMCX%3AGOLD1!%2CNCDEX%3AGOLD%2COANDA%3AXAUUSD%2CSP%3ASPX%2CTVC%3AGOLD%2CVELOCITY%3AGOLD&streaming=true
