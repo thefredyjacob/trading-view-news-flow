@@ -1,6 +1,7 @@
 **Format: JSON**
 
 
+
 **Tag	Specification / Description**
 
 **id** - Unique identifier for the news item (URN format)
@@ -22,6 +23,8 @@
 **relatedSymbols** - List of related stock symbols and their logo IDs (each with "symbol" and "logoid" fields) 
 
 **storyPath** - Path or URL to the full story
+
+
 
 
 URL: 
