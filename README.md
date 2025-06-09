@@ -151,6 +151,17 @@ if __name__ == "__main__":
     fetch_tradingview_news()
 
 ```
+
+### Run the Python Script**
+
+Open your terminal or command prompt, navigate to the folder where you saved `tradingview_news.py`, and run:
+
+```bash
+python tradingview_news.py
+```
+
+---
+
 You should see neatly formatted news items printed in your terminal, each with:
 
 - Title
@@ -158,6 +169,7 @@ You should see neatly formatted news items printed in your terminal, each with:
 - Published date/time (UTC)
 - Related symbols
 - Link to the full article
+
 
 If you see `ModuleNotFoundError: No module named 'requests'`, make sure you installed `requests` with `pip install requests`.
 If TradingView changes its API or restricts access, the script may need updates.
