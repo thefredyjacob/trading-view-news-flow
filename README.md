@@ -1,7 +1,7 @@
 
-## TradingView News API Integration
+## TradingView News Flow API
 
-This project demonstrates how to fetch and display real-time financial news for selected symbols using the TradingView News API. The API provides streaming news updates filtered by language and symbol, making it ideal for financial dashboards, trading platforms, or news aggregators.
+This project demonstrates how to fetch and display real-time financial news for selected symbols using the TradingView News Flow Beta API. The API provides streaming news updates filtered by language and symbol, making it ideal for financial dashboards, trading platforms, or news aggregators.
 
 ---
 
@@ -122,22 +122,45 @@ https://news-mediator.tradingview.com/news-flow/v1/news?filter=lang%3Aen&filter=
 
 ```python
 import requests
+from datetime import datetime
 
-url = "https://news-mediator.tradingview.com/news-flow/v1/news"
-params = {
-    "filter": [
-        "lang:en",
-        "symbol:CAPITALCOM:GOLD,MCX:GOLD1!,NCDEX:GOLD,OANDA:XAUUSD,SP:SPX,TVC:GOLD,VELOCITY:GOLD"
-    ],
-    "streaming": "true"
-}
+def fetch_tradingview_news():
+    url = "https://news-mediator.tradingview.com/news-flow/v1/news"
+    params = {
+        "filter": [
+            "lang:en",
+            "symbol:CAPITALCOM:GOLD,MCX:GOLD1!,NCDEX:GOLD,OANDA:XAUUSD,SP:SPX,TVC:GOLD,VELOCITY:GOLD"
+        ],
+        "streaming": "false"  # Set to "true" for streaming, "false" for a single snapshot
+    }
 
-response = requests.get(url, params=params)
-news_items = response.json().get("items", [])
-for item in news_items:
-    print(item["title"], "-", item.get("source", ""))
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    news_items = response.json().get("items", [])
+
+    for item in news_items:
+        published_dt = datetime.utcfromtimestamp(item["published"])
+        related = ", ".join([s["symbol"] for s in item.get("relatedSymbols", [])])
+        link = item.get("link") or f"https://www.tradingview.com{item.get('storyPath','')}"
+        print(f"📰 {item['title']}")
+        print(f"    Source: {item['source']} | Published: {published_dt.strftime('%Y-%m-%d %H:%M:%S UTC')}")
+        print(f"    Related Symbols: {related}")
+        print(f"    Read more: {link}\n")
+
+if __name__ == "__main__":
+    fetch_tradingview_news()
+
 ```
+You should see neatly formatted news items printed in your terminal, each with:
 
+- Title
+- Source
+- Published date/time (UTC)
+- Related symbols
+- Link to the full article
+
+If you see `ModuleNotFoundError: No module named 'requests'`, make sure you installed `requests` with `pip install requests`.
+If TradingView changes its API or restricts access, the script may need updates.
 
 ---
 
