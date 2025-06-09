@@ -21,12 +21,37 @@ GET https://news-mediator.tradingview.com/news-flow/v1/news
 ```
 
 
+
 ### **Query Parameters**
 
-| Parameter | Description |
-| :-- | :-- |
-| filter | Filter by language (`lang:en`) and by symbol (comma-separated list, e.g., `symbol:TVC:GOLD`) |
-| streaming | Set to `true` for real-time updates |
+| Parameter | Required | Example Value(s) | Description |
+| :-- | :-- | :-- | :-- |
+| filter | Yes | `lang:en`, `symbol:TVC:GOLD,OANDA:XAUUSD,SP:SPX` | Used to filter news by language, symbol, and possibly other criteria. Can be repeated for multiple filters. |
+| streaming | No | `true` | If set to `true`, the API streams news updates in real time. |
+
+
+---
+
+
+### **filter Parameter Details**
+
+#### 1. **lang**
+
+- **Usage:** `filter=lang:en`
+- **Purpose:** Restricts news articles to a specific language.
+- **Supported Values:**
+    - `en` (English)
+    - Other ISO language codes may be supported (e.g., `ru` for Russian, `es` for Spanish), depending on API capabilities.
+
+
+#### 2. **symbol**
+
+- **Usage:** `filter=symbol:TVC:GOLD,OANDA:XAUUSD,SP:SPX`
+- **Purpose:** Filters news to only include articles related to specific financial symbols.
+- **Format:**
+    - Comma-separated list of symbols.
+    - Each symbol is in the format: `EXCHANGE:SYMBOL` (e.g., `TVC:GOLD`, `OANDA:XAUUSD`).
+
 
 **Example:**
 
@@ -34,8 +59,8 @@ GET https://news-mediator.tradingview.com/news-flow/v1/news
 https://news-mediator.tradingview.com/news-flow/v1/news?filter=lang%3Aen&filter=symbol%3ACAPITALCOM%3AGOLD%2CMCX%3AGOLD1!%2CNCDEX%3AGOLD%2COANDA%3AXAUUSD%2CSP%3ASPX%2CTVC%3AGOLD%2CVELOCITY%3AGOLD&streaming=true
 ```
 
-
 ---
+
 
 ## **Sample API Response**
 
@@ -95,9 +120,6 @@ https://news-mediator.tradingview.com/news-flow/v1/news?filter=lang%3Aen&filter=
   ]
 }
 ```
-
-
----
 
 ## **Response Fields**
 
@@ -175,7 +197,7 @@ If TradingView changes its API or restricts access, the script may need updates.
 
 ---
 
-## **Integration Notes**
+## **Notes**
 
 - **Streaming:** If `streaming=true`, use a streaming-capable HTTP client to process updates as they arrive.
 - **Authentication:** The API may require authentication or may be subject to CORS or rate limits. Check your integration environment.
